@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Users</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous"/>
+    <style>
+
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+</head>
+<h1> Product Window</h1>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 text-center mt-5">
+            <form th:action="@{/book/add}" method="post" >
+
+<!--                -------------------->
+                <label>Enter name</label>
+                <input class="form-control" type="text" name="name" required minlength="1">
+
+                <label>Enter price</label>
+                <input class="form-control" type="text" name="price" required minlength="1">
+
+                <div class ="form-group">
+                    <select name="categoryId" class="form-select" aria-label="Default select example" >
+                        <option selected>Select category</option>
+                        <option th:each="p:${categoryList}" th:value="${p.getId()}" th:text="${p.getName()}"></option>
+                    </select>
+                </div>
+
+
+                <input type="submit" class="btn btn-primary w-100">
+            </form>
+        </div>
+        <div class="col-md-8">
+            <table class="table">
+                <div class="alert alert-primary" th:text="${message}">
+                </div>
+                <tr class="table-dark">
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Code</th>
+                </tr>
+                <tr th:each="book:${bookList}">
+                    <td th:text="${book.getName()}"></td>
+                    <td th:text="${book.getPrice()}"></td>
+                    <td th:text="${book.getCategoryId()}"></td>
+                    <td th:text="${book.getCode()}"></td>
+
+                    <td>
+                        <a th:href = "@{/book/edit/{id}(id=${book.id})}"
+                           class = "btn btn-primary">Edit</a>
+
+                        <a th:href = "@{/book/delete/{id}(id=${book.id})}"
+                           class = "btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

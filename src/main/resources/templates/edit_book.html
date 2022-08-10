@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>>
+
+<body>
+<br>
+<br>
+<div class = "container">
+    <div class = "row">
+        <div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+            <h1 class = "text-center"> Update Category </h1>
+            <div class = "card-body">
+                <form th:action="@{'/book/edit/'+${book.getId()}}" th:object = "${book}" method="POST">
+                    <div class ="form-group">
+                        <label> Product New Name </label>
+                        <input
+                                type = "text"
+                                th:field = "*{name}"
+                                class = "form-control"
+                                placeholder="Enter Product New Name"
+                        />
+                    </div>
+
+                    <div class ="form-group">
+                        <label> Enter new Price  </label>
+                        <input
+                                type = "number"
+                                th:field = "*{price}"
+                                class = "form-control"
+                                placeholder="Enter Product new Price"
+                        />
+                    </div>
+
+                    <div class ="form-group">
+                        <select name="category" class="form-select" aria-label="Default select example">
+                            <option selected> Select category </option>
+                         <option th:each="cat:${categories}" th:value="${cat.getId()}" th:text="${cat.getName()}"></option>
+                        </select>
+                    </div>
+
+                    <div class = "box-footer">
+                        <button type="submit" class = "btn btn-primary w-100">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
